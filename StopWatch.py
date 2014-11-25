@@ -6,12 +6,8 @@ from kivy.uix.label import Label
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty, StringProperty
 
-
 kivy.config.Config.set ( 'input', 'mouse', 'mouse,disable_multitouch' )
 
-
-
-    
 #contains the whole interface
 class StopWatch(Widget):
 
@@ -20,11 +16,7 @@ class StopWatch(Widget):
     minuets = 0
     time_track = StringProperty("00:00")
     running = False
-
-
-    startBtntxt = "Start"
-    stopBtntxt = "Stop"
-
+    resetting = True
     timelbl = ObjectProperty(None)    
 
     def update(self,dt):
@@ -42,23 +34,33 @@ class StopWatch(Widget):
 
                 self.minuets += 1
                 self.seconds = 0
-            
-            self.timelbl.text = str(self.time_track)
 
+            self.timelbl.text = str(self.time_track)
             self.seconds+=1
+
+        if(self.resetting == True):
+            self.minuets = 0
+            self.seconds = 0
+            self.time_track = str(self.minuets) + "0:0" + str(self.seconds)
+            self.resetting = False
+            self.running = False
 
     #Starts the timer
     def start_time(self):
         print("START TIME!")
         self.running = True
         
-        
     #Stops the timer
     def stopTime(self):
         print("STOP TIME!")
         self.running = False
 
-    
+    #Reset the timer
+    def resetTime(self):
+        print("RESET TIME!")
+        self.running = False
+        self.resetting = True
+
 class StopWatchApp(App):     
     def build(self):
         watch = StopWatch()
