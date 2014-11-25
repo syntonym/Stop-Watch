@@ -12,49 +12,53 @@ kivy.config.Config.set ( 'input', 'mouse', 'mouse,disable_multitouch' )
 
 
     
-
+#contains the whole interface
 class StopWatch(Widget):
+
+    #gloabl variables
     seconds = 0
     minuets = 0
     time_track = StringProperty("00:00")
+    running = False
 
-    
+
     startBtntxt = "Start"
     stopBtntxt = "Stop"
 
-    startBtn = ObjectProperty(None)
-    stopBtn = ObjectProperty(None)
-    timelbl = ObjectProperty(None)
-    
-    
+    timelbl = ObjectProperty(None)    
 
     def update(self,dt):
-        if(self.seconds < 10 and self.minuets < 10):
-            self.time_track = "0" + str(self.minuets) + ":0" + str(self.seconds)
-        elif(self.seconds >= 10 and self.minuets < 10):
-            self.time_track = "0" + str(self.minuets) + ":" + str(self.seconds)
-        elif(self.seconds >= 10 and self.minuets >= 10):
-            self.time_track = str(self.minuets) + ":" + str(self.seconds)
-
-        if(self.seconds == 60):
-
-            self.minuets += 1
-            self.seconds = 0
-        
         self.timelbl.text = str(self.time_track)
+        if(self.running):
 
-        self.seconds+=1
+            if(self.seconds < 10 and self.minuets < 10):
+                self.time_track = "0" + str(self.minuets) + ":0" + str(self.seconds)
+            elif(self.seconds >= 10 and self.minuets < 10):
+                self.time_track = "0" + str(self.minuets) + ":" + str(self.seconds)
+            elif(self.seconds >= 10 and self.minuets >= 10):
+                self.time_track = str(self.minuets) + ":" + str(self.seconds)
 
+            if(self.seconds == 60):
+
+                self.minuets += 1
+                self.seconds = 0
+            
+            self.timelbl.text = str(self.time_track)
+
+            self.seconds+=1
+
+    #Starts the timer
     def start_time(self):
         print("START TIME!")
+        self.running = True
         
         
-
+    #Stops the timer
     def stopTime(self):
         print("STOP TIME!")
+        self.running = False
 
     
-
 class StopWatchApp(App):     
     def build(self):
         watch = StopWatch()
