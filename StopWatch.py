@@ -6,55 +6,62 @@ from kivy.uix.label import Label
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty, StringProperty
 import time
-
+from threading import Thread
 
 kivy.config.Config.set ( 'input', 'mouse', 'mouse,disable_multitouch' )
 
+
+
+    
+
 class StopWatch(Widget):
+    seconds = 0
+    minuets = 0
+    time_track = StringProperty("00:00")
+
+    
+
+
     startBtntxt = "Start"
     stopBtntxt = "Stop"
 
     startBtn = ObjectProperty(None)
     stopBtn = ObjectProperty(None)
     timelbl = ObjectProperty(None)
-
-    seconds = 0
-    minuets = 0
-
-    time = StringProperty("")
-
-    if(seconds < 10 and minuets < 10):
-        time = str(minuets) + "0:0" + str(seconds) 
-
     
     
-    def startTime(self):
-        print("TIME STARTED!")
-        start = time.time()
-        time.clock()    
-        elapsed = 0
-        while elapsed >= 0:
-            elapsed = time.time() - start
-            print "loop cycle time: %f, seconds count: %02d" % (time.clock() , elapsed)
-            if elapsed < 60:
-                self.seconds +=1
-            else:
-                self.minuets+= 1
-                self.seconds = 0
-            self.timelbl.text =self.time
-            time.sleep(1)  
 
-            
-    def stopTime(self):
-        print("TIME STOPED!")
+    def update(self,dt):
+        if(self.seconds < 10 and self.minuets < 10):
+            self.time_track = "0" + str(self.minuets) + ":0" + str(self.seconds)
+        elif(self.seconds >= 10 and self.minuets < 10):
+            self.time_track = "0" + str(self.minuets) + ":" + str(self.seconds)
+        elif(self.seconds >= 10 and self.minuets >= 10):
+            self.time_track = str(self.minuets) + ":" + str(self.seconds)
 
+        if(self.seconds == 60):
 
-class StopWatchApp(App):
-    
+            self.minuets += 1
+            self.seconds = 0
         
+        self.timelbl.text = str(self.time_track)
+
+        self.seconds+=1
+
+    def start_time(self):
+        print("START TIME!")
+        
+        
+
+    def stopTime(self):
+        print("STOP TIME!")
+
+    
+
+class StopWatchApp(App):     
     def build(self):
         watch = StopWatch()
-       
+        Clock.schedule_interval(watch.update, 1/1000)
         return watch
 
 StopWatchApp().run()
