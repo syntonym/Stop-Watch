@@ -5,8 +5,7 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty, StringProperty
-import time
-from threading import Thread
+
 
 kivy.config.Config.set ( 'input', 'mouse', 'mouse,disable_multitouch' )
 
