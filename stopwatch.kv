@@ -1,0 +1,31 @@
+#:kivy 1.0.9
+
+
+<StopWatch>:
+	startBtn: StartButton
+    stopBtn: StopButton
+    timelbl: timeLabel
+
+    Label:
+    	id: timeLabel
+        font_size: 70  
+        center_y: root.height /2
+        center_x: root.width /2 
+        top: root.top - 50
+        text: str(root.time)
+
+    Button:
+    	id: StartButton 
+    	size: 100,50
+    	text: str(root.startBtntxt)
+    	center_y: (root.height /2) - 90
+        center_x: (root.width /2 ) - 100
+        on_release: root.startTime()
+
+    Button:
+    	id: StopButton 
+    	size: 100,50
+    	text: str(root.stopBtntxt)
+    	center_y: (root.height /2) - 90
+        center_x: (root.width /2 ) + 100
+        on_press: root.stopTime()
