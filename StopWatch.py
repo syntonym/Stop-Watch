@@ -8,6 +8,8 @@ from kivy.properties import ObjectProperty, StringProperty
 import time
 
 kivy.config.Config.set ( 'input', 'mouse', 'mouse,disable_multitouch' )
+kivy.config.Config.set('graphics', 'width', '400')
+kivy.config.Config.set('graphics', 'height', '600')
 
 #contains the whole interface
 class StopWatch(Widget):
@@ -56,14 +58,12 @@ class StopWatch(Widget):
                 self.minuets += 1
                 self.seconds = 0
 
-           
             if(self.mili == 99):
                 self.seconds+=1
                 self.mili = 0
 
             self.mili +=1
             
-
         if(self.resetting == True):
             self.minuets = 0
             self.seconds = 0
