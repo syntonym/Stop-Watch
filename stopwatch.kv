@@ -2,8 +2,6 @@
 
 
 <StopWatch>:
-	startBtn: StartButton
-    stopBtn: StopButton
     timelbl: timeLabel
 
     Label:
@@ -17,7 +15,7 @@
     Button:
     	id: StartButton 
     	size: 100,50
-    	text: str(root.startBtntxt)
+    	text: "Start"
     	center_y: (root.height /2) - 90
         center_x: (root.width /2 ) - 100
         on_press: root.start_time()
@@ -26,7 +24,15 @@
     Button:
     	id: StopButton 
     	size: 100,50
-    	text: str(root.stopBtntxt)
+    	text: "Stop"
     	center_y: (root.height /2) - 90
         center_x: (root.width /2 ) + 100
         on_press: root.stopTime()
+
+    Button:
+    	id: ResetButton 
+    	size: 100,50
+    	text: "reset"
+    	center_y: (root.height /2) - 90
+        center_x: (root.width /2 ) 
+        on_press: root.resetTime()
