@@ -67,7 +67,8 @@ class StopWatch(Widget):
         if(self.resetting == True):
             self.minuets = 0
             self.seconds = 0
-            self.time_track = str(self.minuets) + "0:0" + str(self.seconds)
+            self.mili = 0
+            self.time_track = str(self.minuets) + "0:0" + str(self.seconds) + ":0" + str(self.mili)
             self.resetting = False
             self.running = False
 
