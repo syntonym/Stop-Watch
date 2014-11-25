@@ -19,8 +19,6 @@ class StopWatch(Widget):
     time_track = StringProperty("00:00")
 
     
-
-
     startBtntxt = "Start"
     stopBtntxt = "Stop"
 
@@ -60,7 +58,7 @@ class StopWatch(Widget):
 class StopWatchApp(App):     
     def build(self):
         watch = StopWatch()
-        Clock.schedule_interval(watch.update, 1/1000)
+        Clock.schedule_interval(watch.update, 1)
         return watch
 
 StopWatchApp().run()
